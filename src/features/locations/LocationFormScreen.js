@@ -1,16 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Toolbar } from '../../components';
-import { addLocation } from './location.slice';
+import { addLocation, editLocation as editLocationFn } from './location.slice';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { getLocationById } from '.';
 
 export const LocationFormScreen = () => {
   const dispatch = useDispatch();
+  const [mode, setMode] = useState('create');
+  const navigate = useNavigate();
 
-  const sampleCategories = ['home', 'school', 'work'];
+  const params = useParams();
+
+  const location = useSelector((state) => getLocationById(state, params.id));
 
   const [formState, setFormState] = useState({
     name: '',
@@ -19,6 +28,17 @@ export const LocationFormScreen = () => {
     lat: '',
     categories: [],
   });
+
+  useEffect(() => {
+    if (params.id && location) {
+      setMode('edit');
+      setFormState(location);
+    } else {
+      navigate('/locations/new');
+    }
+  }, [params.id]);
+
+  const sampleCategories = ['home', 'school', 'work'];
 
   function handleInputChange(e) {
     const { name, value } = e.target;
@@ -29,8 +49,6 @@ export const LocationFormScreen = () => {
     }));
   }
 
-  const editMode = false;
-
   function createLocation(e) {
     e.preventDefault();
 
@@ -39,12 +57,14 @@ export const LocationFormScreen = () => {
   }
 
   function editLocation(e) {
-    e.preventDefault();
+    e?.preventDefault();
+
+    dispatch(editLocationFn(formState));
   }
 
   return (
     <>
-      <Toolbar title={!editMode ? 'Add new Location' : 'Edit Location'} />
+      <Toolbar title={mode === 'create' ? 'Add new Location' : 'Edit Location'} />
       <div className="collection-form-container">
         <form>
           <div className="form-control">
@@ -74,6 +94,7 @@ export const LocationFormScreen = () => {
             <Select
               options={sampleCategories.map((cat) => ({ label: cat, value: cat }))}
               isMulti
+              value={formState.categories.map((cat) => ({ label: cat, value: cat }))}
               onChange={(selectedValues) => {
                 setFormState((prev) => ({
                   ...prev,
@@ -83,8 +104,8 @@ export const LocationFormScreen = () => {
             />
           </div>
 
-          <button type="submit" onClick={editMode ? editLocation : createLocation}>
-            {editMode ? 'Save' : 'Create '}
+          <button type="submit" onClick={mode === 'edit' ? editLocation : createLocation}>
+            {mode === 'edit' ? 'Save' : 'Create '}
           </button>
         </form>
       </div>

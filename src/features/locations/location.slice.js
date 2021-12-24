@@ -16,19 +16,31 @@ export const locationSlice = createSlice({
         [id]: formState,
       };
 
-      console.log(updatedLocations);
-
       state.locations = updatedLocations;
     },
 
     editLocation: (state, action) => {
-      const { id, formState } = action.payload;
+      const formState = action.payload;
+
+      const updatedLocations = {
+        ...state.locations,
+        [formState.id]: formState,
+      };
+
+      state.locations = updatedLocations;
+    },
+
+    deleteLocation: (state, action) => {
+      const id = action.payload;
+      delete state.locations[id];
     },
   },
 });
 
-export const { addLocation } = locationSlice.actions;
+export const { addLocation, editLocation, deleteLocation } = locationSlice.actions;
 
-export const locationSelector = (state) => state.location.locations;
+export const locationsSelector = (state) => state.location.locations;
+
+export const getLocationById = (state, id) => state.location.locations[id];
 
 export default locationSlice.reducer;

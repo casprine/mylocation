@@ -13,6 +13,11 @@ import {
   categoriesSelector,
 } from '../../app/store.slice';
 
+// utils
+function validateArray(array) {
+  return !Boolean(array.filter(Boolean).length);
+}
+
 export const LocationFormScreen = () => {
   const categories = Object.values(useSelector(categoriesSelector));
 
@@ -64,7 +69,17 @@ export const LocationFormScreen = () => {
     dispatch(editLocationFn(formState));
   }
 
+  function validateInput() {
+    const { categories, ...rest } = formState;
+
+    const validFields = validateArray(Object.values(rest));
+    const validCategories = validateArray(categories);
+
+    return validFields || validCategories;
+  }
+
   const enableInputs = Boolean(categories.length);
+  const disableButton = validateInput();
 
   return (
     <>
@@ -109,7 +124,12 @@ export const LocationFormScreen = () => {
             />
           </div>
 
-          <button type="submit" onClick={mode === 'edit' ? editLocation : createLocation} className="cta-btn">
+          <button
+            disabled={disableButton}
+            type="submit"
+            onClick={mode === 'edit' ? editLocation : createLocation}
+            className="cta-btn"
+          >
             {mode === 'edit' ? 'Save' : 'Create '}
           </button>
         </form>

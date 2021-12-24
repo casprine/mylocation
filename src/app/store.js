@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
+import locationReducer from '../features/locations/location.slice';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -11,6 +12,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   counter: counterReducer,
+  location: locationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

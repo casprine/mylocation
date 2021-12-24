@@ -3,25 +3,19 @@
 html,
 body {
   font-family: 'Inter', sans-serif;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 * {
   font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
 }
 
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
+a {
+  text-decoration: none;
+  color: black;
 }
 
 .App-header {
@@ -30,7 +24,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
 }
 
 .App-link {
@@ -63,15 +56,11 @@ body {
   margin: 0 10px;
 }
 
-* {
-  outline: 1px dotted red;
-}
-
 .flex-container {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
 }
 
 .location-detail-view-container {
@@ -89,6 +78,21 @@ body {
   height: 100%;
 }
 
+.option {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+}
+
+.option .label {
+  color: #71717a;
+}
+
+.option .value {
+  color: #1e293b;
+  font-size: 15px;
+}
+
 .map-container {
   width: 100%;
   height: 100%;
@@ -102,13 +106,128 @@ body {
 }
 
 .toolbar {
-  display: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
   width: 100%;
   height: 80px;
   top: 0;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  padding: 0 40px;
 }
 
 #map * {
   overflow: visible !important;
+}
+
+.container {
+  height: 100%;
+}
+
+/* Location Listing styling */
+
+.location-listing {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.location-listing .location {
+  width: 300px;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.location button {
+  border: 0;
+  padding: 5px 8px;
+  margin-right: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.categories {
+  margin-bottom: 10px;
+}
+
+.categories p {
+  display: inline-flex;
+  background-color: #075985;
+  font-size: 12px;
+  text-transform: uppercase;
+  height: 25px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: white;
+  margin: 0;
+  align-items: center;
+}
+
+form {
+  width: 350px;
+}
+
+input {
+  border-radius: 10px;
+  border: 1.5px solid #d1d5db;
+  padding: 8px 10px;
+  font-size: 14px;
+  background-color: white;
+  transition: border-color 200ms ease-in;
+  position: relative;
+  width: 100%;
+}
+
+input:focus {
+  outline: 1px solid #fdba74;
+  box-shadow: 0px 0px 0px 4px rgba(255, 119, 61, 0.2);
+}
+
+input::placeholder {
+  color: #d4d4d8;
+}
+
+.form-control {
+  margin-bottom: 15px;
+}
+
+.form-control label {
+  font-size: 13px;
+  color: #475569;
+  display: block;
+  margin-left: 5px;
+  margin-bottom: 3px;
+}
+
+.cta-btn {
+  border: 0;
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #3b82f6;
+  color: white;
+}
+
+.cat-btn:disabled {
+  background-color: #d4d4d4;
+}
+
+.btn-danger {
+  background-color: #9f1239;
+  color: white;
+}
+
+.error {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid red;
+  text-align: center;
+  background-color: #dc2626;
+  color: white;
+  font-size: 14px;
 }

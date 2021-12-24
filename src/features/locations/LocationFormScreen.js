@@ -6,9 +6,16 @@ import { v4 as uuid } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Toolbar } from '../../components';
-import { addLocation, editLocation as editLocationFn, getLocationById } from './location.slice';
+import {
+  addLocation,
+  editLocation as editLocationFn,
+  getLocationById,
+  categoriesSelector,
+} from '../../app/store.slice';
 
 export const LocationFormScreen = () => {
+  const categories = Object.values(useSelector(categoriesSelector));
+
   const dispatch = useDispatch();
   const [mode, setMode] = useState('create');
   const navigate = useNavigate();
@@ -34,8 +41,6 @@ export const LocationFormScreen = () => {
     }
   }, [params.id]);
 
-  const sampleCategories = ['home', 'school', 'work'];
-
   function handleInputChange(e) {
     const { name, value } = e.target;
 
@@ -50,6 +55,7 @@ export const LocationFormScreen = () => {
 
     const id = uuid();
     dispatch(addLocation({ id, formState: { ...formState, id } }));
+    navigate(`/location/${id}`);
   }
 
   function editLocation(e) {
@@ -58,37 +64,40 @@ export const LocationFormScreen = () => {
     dispatch(editLocationFn(formState));
   }
 
+  const enableInputs = Boolean(categories.length);
+
   return (
     <>
       <Toolbar title={mode === 'create' ? 'Add new Location' : 'Edit Location'} />
       <div className="collection-form-container">
+        {!enableInputs && <p className="error">Please add a category first </p>}
+
         <form>
           <div className="form-control">
             <label htmlFor="name">Name</label>
-            <input type="text" name="name" value={formState.name} onChange={handleInputChange} />
+            <input required type="text" name="name" value={formState.name} onChange={handleInputChange} />
           </div>
 
           <div className="form-control">
             <label htmlFor="Address">Address</label>
-            <input type="text" name="address" value={formState.address} onChange={handleInputChange} />
+            <input required type="text" name="address" value={formState.address} onChange={handleInputChange} />
           </div>
 
-          <div className="split-flex-container">
-            <div className="form-control">
-              <label htmlFor="longitude">Longitude</label>
-              <input type="number" name="lng" value={formState.lng} onChange={handleInputChange} />
-            </div>
+          <div className="form-control">
+            <label htmlFor="longitude">Longitude</label>
+            <input required type="number" name="lng" value={formState.lng} onChange={handleInputChange} />
+          </div>
 
-            <div className="form-control">
-              <label htmlFor="latitude">Latitude</label>
-              <input type="number" name="lat" value={formState.lat} onChange={handleInputChange} />
-            </div>
+          <div className="form-control">
+            <label htmlFor="latitude">Latitude</label>
+            <input required type="number" name="lat" value={formState.lat} onChange={handleInputChange} />
           </div>
 
           <div className="form-control">
             <label htmlFor="category">Category</label>
             <Select
-              options={sampleCategories.map((cat) => ({ label: cat, value: cat }))}
+              isDisabled={!Boolean(categories.length)}
+              options={categories.map((cat) => ({ label: cat.name, value: String(cat.name).toLocaleLowerCase() }))}
               isMulti
               value={formState.categories.map((cat) => ({ label: cat, value: cat }))}
               onChange={(selectedValues) => {
@@ -100,7 +109,7 @@ export const LocationFormScreen = () => {
             />
           </div>
 
-          <button type="submit" onClick={mode === 'edit' ? editLocation : createLocation}>
+          <button type="submit" onClick={mode === 'edit' ? editLocation : createLocation} className="cta-btn">
             {mode === 'edit' ? 'Save' : 'Create '}
           </button>
         </form>

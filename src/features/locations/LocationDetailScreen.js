@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import { Toolbar, MapView } from '../../components';
-import { getLocationById, deleteLocation } from './location.slice';
+import { getLocationById, deleteLocation } from '../../app/store.slice';
 
 export const LocationDetailScreen = () => {
   const dispatch = useDispatch();

@@ -60,7 +60,8 @@ export const AppStore = createSlice({
 
     deleteCategory: (state, action) => {
       const id = action.payload;
-      delete state.locations[id];
+
+      delete state.categories[id];
     },
   },
 });
@@ -79,5 +80,16 @@ export const categoriesSelector = (state) => {
 };
 
 export const getCategoryById = (state, id) => state.appState.categories[id];
+
+export const getLocationsByCategoryId = (state, id) => {
+  const category = state.appState.categories[id];
+  const categoryName = String(category.name).toLowerCase();
+  const locations = Object.values(state.appState.locations);
+
+  return {
+    name: categoryName,
+    locations: locations.filter((location) => location.categories.includes(categoryName)),
+  };
+};
 
 export default AppStore.reducer;

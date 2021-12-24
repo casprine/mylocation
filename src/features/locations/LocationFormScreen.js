@@ -55,7 +55,7 @@ export const LocationFormScreen = () => {
 
     const id = uuid();
     dispatch(addLocation({ id, formState: { ...formState, id } }));
-    navigate(`/location/${id}`);
+    navigate(`/locations/${id}`);
   }
 
   function editLocation(e) {
@@ -97,7 +97,7 @@ export const LocationFormScreen = () => {
             <label htmlFor="category">Category</label>
             <Select
               isDisabled={!Boolean(categories.length)}
-              options={categories.map((cat) => ({ label: cat.name, value: String(cat.name).toLocaleLowerCase() }))}
+              options={categories.map((cat) => ({ label: cat.name, value: String(cat.name).toLowerCase() }))}
               isMulti
               value={formState.categories.map((cat) => ({ label: cat, value: cat }))}
               onChange={(selectedValues) => {

@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { CategoryListingScreen, CategoryFormScreen } from './features/category';
+import { CategoryListingScreen, CategoryFormScreen, CategoryDetailScreen } from './features/category';
 import { LocationFormScreen, LocationListingScreen, LocationDetailScreen } from './features/locations';
 
 export const AppRoutes = () => {
@@ -11,7 +11,7 @@ export const AppRoutes = () => {
       <Route path="/locations/new" element={<LocationFormScreen />} />
       <Route path="/categories" element={<CategoryListingScreen />} />
 
-      <Route path="/categories/:id" element={<LocationDetailScreen />} />
+      <Route path="/categories/:id" element={<CategoryDetailScreen />} />
       <Route path="/categories/:id/edit" element={<CategoryFormScreen />} />
       <Route path="/categories/new" element={<CategoryFormScreen />} />
     </Routes>

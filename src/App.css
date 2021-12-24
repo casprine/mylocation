@@ -73,3 +73,42 @@ body {
   align-items: center;
   flex-wrap: wrap;
 }
+
+.location-detail-view-container {
+  display: flex;
+  justify-content: space-between;
+  height: calc(100vh - 100px);
+  flex: 1;
+  width: 100%;
+}
+
+.location-detail-view-container .location {
+  flex: 0.5;
+  background-color: red;
+  width: 100%;
+  height: 100%;
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+  flex: 0.5;
+}
+
+.map-container #map {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.toolbar {
+  display: absolute;
+  width: 100%;
+  height: 80px;
+  top: 0;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+#map * {
+  overflow: visible !important;
+}

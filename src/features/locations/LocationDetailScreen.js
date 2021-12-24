@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
-import { Toolbar } from '../../components';
+import { Toolbar, MapView } from '../../components';
 import { getLocationById, deleteLocation } from './location.slice';
 
 export const LocationDetailScreen = () => {
@@ -16,7 +16,7 @@ export const LocationDetailScreen = () => {
     <>
       <Toolbar title="Location details screen" />
 
-      <section>
+      <section className="location-detail-view-container">
         <div className="location" key={location.id}>
           <p className="name">{location.name}</p>
           <p className="address">{location.address}</p>
@@ -40,6 +40,8 @@ export const LocationDetailScreen = () => {
             Delete
           </button>
         </div>
+
+        <MapView position={{ lat: Number(location.lat), lng: Number(location.lng) }} />
       </section>
     </>
   );

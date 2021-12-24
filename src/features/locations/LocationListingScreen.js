@@ -16,8 +16,8 @@ export const LocationListingScreen = () => {
       <div className="flex-container">
         {locations.map((location) => {
           return (
-            <Link to={`/locations/${location.id}`}>
-              <div className="location" key={location.id}>
+            <Link to={`/locations/${location.id}`} key={location.id}>
+              <div className="location">
                 <p className="name">{location.name}</p>
                 <p className="address">{location.address}</p>
                 <div className="cord">
@@ -31,7 +31,15 @@ export const LocationListingScreen = () => {
                 </div>
 
                 <Link to={`/locations/${location.id}/edit`}>Edit</Link>
-                <button onClick={() => dispatch(deleteLocation(location.id))}>Delete</button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dispatch(deleteLocation(location.id));
+                  }}
+                >
+                  Delete
+                </button>
               </div>
             </Link>
           );

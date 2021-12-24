@@ -14,7 +14,7 @@ export const MapView = ({ position }) => {
 
   return (
     <div className="map-container">
-      <Wrapper apiKey={procces.env.REACT_APP_API_KEY} render={render}>
+      <Wrapper apiKey={process.env.REACT_APP_API_KEY} render={render}>
         <Map center={position} zoom={zoom} style={{ flexGrow: '1', height: '100%' }}>
           <Marker position={position} />
         </Map>

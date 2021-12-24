@@ -1,16 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Toolbar } from '../../components';
-import { addLocation, editLocation as editLocationFn } from './location.slice';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { getLocationById } from '.';
+import { addLocation, editLocation as editLocationFn, getLocationById } from './location.slice';
 
 export const LocationFormScreen = () => {
   const dispatch = useDispatch();

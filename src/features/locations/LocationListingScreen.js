@@ -1,5 +1,5 @@
 import React from 'react';
 
 export const LocationListingScreen = () => {
-  return <p>hello locations</p>;
+  return <p>hello collections</p>;
 };

@@ -31,15 +31,3 @@ yarn install
 ```
 yarn start
 ```
-
-### Proposed Folder Structure
-
-```sh
-mpharma-test/
-├── public                      # Has the html
-├── src
-    ├── actions                 # redux actions
-    ├── reducers                # redux reducers
-    ├── App.js                  # Main application entry file
-    └── store.js                # redux stores
-```
